@@ -13,13 +13,14 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import spring.boot.locking.entity.BusDetails;
 import spring.boot.locking.entity.Ticket;
 import spring.boot.locking.repository.BusRepository;
 import spring.boot.locking.repository.TicketRepository;
 
-@Service
+@Service @Transactional
 @RequiredArgsConstructor
 public class BookingService {
 	private final TicketRepository ticketRepository;
@@ -39,7 +40,7 @@ public class BookingService {
 	}
 
 	public void bookTicket() throws SeatNotAvailable, InterruptedException {
-		Optional<BusDetails> busDeOptional = busRepository.findById(1L);
+		Optional<BusDetails> busDeOptional = busRepository.findWithLockingById(1L);
 		if (busDeOptional.isPresent()) {
 			saveTicket("John", "Smit", "M", busDeOptional.get());
 		}

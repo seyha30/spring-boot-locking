@@ -11,6 +11,7 @@
 package spring.boot.locking.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -19,6 +20,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -26,8 +28,13 @@ import lombok.Setter;
 public class BusDetails {
 	@Id
 	private Long id;
-	private LocalDate departDateTime;
+	private LocalDateTime departDateTime;
 	private Integer seatCapacity;
+	private String number;
+	
+	@Version
+	private Long version;
+	
 	@OneToMany(mappedBy = "busDetails")
 	private List<Ticket> tickets;
 	
