@@ -14,7 +14,6 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.repository.CrudRepository;
-
 import jakarta.persistence.LockModeType;
 import spring.boot.locking.entity.BusDetails;
 
